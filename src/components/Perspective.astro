@@ -1,0 +1,75 @@
+---
+/**
+ * Perspective.astro
+ * Component to wrap content attributed to a specific Wintermute persona.
+ * 
+ * Usage: <Perspective persona="Silicon Architect">...</Perspective>
+ */
+---
+
+<div class={`perspective-block persona-${persona.toLowerCase().replace(/\s+/g, '-')}`} data-persona={persona}>
+  <div class="perspective-label">
+    <span class="persona-icon"></span>
+    {persona}
+  </div>
+  <div class="perspective-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .perspective-block {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-left: 3px solid var(--border);
+    transition: all 0.3s ease;
+    background: var(--surface);
+  }
+
+  .perspective-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--on-surface-secondary);
+  }
+
+  .persona-icon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* Persona Colors from DESIGN.md */
+  .persona-silicon-architect {
+    --persona-color: #00d4ff; /* Cyan */
+    border-color: var(--persona-color);
+  }
+  .persona-silicon-architect .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+
+  .persona-training-architect {
+    --persona-color: #ff2d6b; /* Pink */
+    border-color: var(--persona-color);
+  }
+  .persona-training-architect .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+
+  .persona-agentic-architect {
+    --persona-color: #00ff9d; /* Green */
+    border-color: var(--persona-color);
+  }
+  .persona-agentic-architect .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+
+  .persona-editorial-synthesizer {
+    --persona-color: #ffffff; /* White */
+    border-color: var(--persona-color);
+  }
+  .persona-editorial-synthesizer .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+
+  .perspective-content {
+    font-family: 'Inter', sans-serif;
+    color: var(--on-surface);
+  }
+</style>

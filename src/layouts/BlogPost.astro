@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import type { CollectionEntry } from 'astro:content';
+import ViewToggle from '../components/ui/ViewToggle.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -36,7 +37,6 @@ const formattedDate = new Date(date).toISOString().split('T')[0];
     <div class="prose-container">
       <header class="post-header">
         <p class="section-label">// {formattedDate}</p>
-        <h1>{title}</h1>
         <div class="post-meta-bar">
           {readingTime && <span>{readingTime}</span>}
           <div class="card-tags">
@@ -46,10 +46,12 @@ const formattedDate = new Date(date).toISOString().split('T')[0];
       </header>
 
       <div class="prose">
+        <ViewToggle />
         <slot />
       </div>
 
-      <a href="/#posts" class="back-link">← Back to Archive</a>
+      <a href="/" class="back-link">← Home</a>
+      <a href="/archive" class="back-link" style="margin-left: 24px;">← Archive</a>
     </div>
   </article>
 

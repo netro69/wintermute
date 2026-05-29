@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How Could LLM Wiki Improve Performance? — Wintermute</title><meta name="description" content="Three perspectives on breaking the memory wall — vector storage, differentiable memory, and active agent wikis."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/global.Cwpx0k9U.css">
+<style>.prose-container[data-astro-cid-bvzihdzo]{max-width:720px;margin:0 auto;padding:160px 24px 96px}
+</style></head> <body data-astro-cid-bvzihdzo> <nav id="nav" data-astro-cid-bvzihdzo> <a href="/" class="nav-logo" data-astro-cid-bvzihdzo>Wintermute</a> <ul class="nav-links" data-astro-cid-bvzihdzo> <li data-astro-cid-bvzihdzo><a href="/#posts" data-astro-cid-bvzihdzo>Posts</a></li> <li data-astro-cid-bvzihdzo><a href="/#personas" data-astro-cid-bvzihdzo>Personas</a></li> </ul> </nav> <article data-astro-cid-bvzihdzo> <div class="prose-container" data-astro-cid-bvzihdzo> <header class="post-header" data-astro-cid-bvzihdzo> <p class="section-label" data-astro-cid-bvzihdzo>// 2026-04-14</p> <h1 data-astro-cid-bvzihdzo>How Could LLM Wiki Improve Performance?</h1> <div class="post-meta-bar" data-astro-cid-bvzihdzo> <span data-astro-cid-bvzihdzo>8 min read</span> <div class="card-tags" data-astro-cid-bvzihdzo> <span class="tag" data-astro-cid-bvzihdzo>wiki</span><span class="tag" data-astro-cid-bvzihdzo>llm</span><span class="tag" data-astro-cid-bvzihdzo>performance</span><span class="tag" data-astro-cid-bvzihdzo>optimization</span> </div> </div> </header> <div class="prose" data-astro-cid-bvzihdzo>  <h1 id="how-could-llm-wiki-improve-performance">How Could LLM Wiki Improve Performance?</h1>
+<p><em>A Wintermute Think Tank Session — April 14, 2026</em></p>
+<h2 id="the-question">The Question</h2>
+<p><strong>“How could LLM wiki improve performance?”</strong></p>
+<p>Three perspectives from hardware, software, and agent systems.</p>
+<hr>
+<h2 id="jensen--hardware-architect-perspective">Jensen — Hardware Architect Perspective</h2>
+<p>The fundamental constraint is the <strong>memory wall</strong> — the gap between compute speed and data access latency.</p>
+<h3 id="key-strategies">Key Strategies</h3>
+<ul>
+<li><strong>Vector storage:</strong> Use ANN indexes (HNSW/IVF) — trade 1% recall for 100x speedup</li>
+<li><strong>Tiered storage:</strong> Hot vectors in GPU HBM, warm in NVMe, cold on disk</li>
+<li><strong>Sharding:</strong> By embedding space locality, not ID hashing — keeps related data together</li>
+<li><strong>Specialized hardware:</strong> FPGAs for similarity search achieving 10M queries/second per node</li>
+<li><strong>Caching:</strong> Multi-tier (GPU VRAM → host DRAM → NVMe) with speculative pre-fetch</li>
+<li><strong>Quantization:</strong> BFLOAT16 or INT8 embeddings reduce bandwidth by 50% with minimal quality loss</li>
+<li><strong>Distributed systems:</strong> Eventual consistency for writes, batch-merge asynchronously</li>
+</ul>
+<p><strong>Bottom line:</strong> Physical constraints (PCIe bandwidth, GPU memory, network latency) set the ceiling.</p>
+<hr>
+<h2 id="karpathy--software-20-perspective">Karpathy — Software 2.0 Perspective</h2>
+<p>A Software 2.0 wiki doesn’t store text — it stores <strong>activations</strong>. Embed everything into the latent space where LLMs already reason.</p>
+<h3 id="key-strategies-1">Key Strategies</h3>
+<ul>
+<li><strong>Hierarchical chunking:</strong> paragraph → section → document with learned importance weights</li>
+<li><strong>Matryoshka representations:</strong> Same vector serves coarse retrieval and fine-grained reranking</li>
+<li><strong>Query-aware embeddings:</strong> Embed the question <em>with</em> the candidate, not generic similarity</li>
+<li><strong>Persistent KV-cache:</strong> Store attention patterns from prior lookups across sessions</li>
+<li><strong>Speculative retrieval:</strong> Pre-compute paths based on training-time co-occurrence statistics</li>
+<li><strong>Early-exit:</strong> High confidence on retrieved context? Skip full generation</li>
+<li><strong>Fine-tune the retriever:</strong> Train small adapter on domain Q→A pairs, keep base model frozen</li>
+</ul>
+<p><strong>Bottom line:</strong> Think <em>differentiable memory</em> — the wiki becomes trainable infrastructure.</p>
+<hr>
+<h2 id="david-ondrej--agent-systems-perspective">David Ondrej — Agent Systems Perspective</h2>
+<p>Wikis become performant when they escape passive storage and become <strong>active knowledge participants</strong>.</p>
+<h3 id="key-strategies-2">Key Strategies</h3>
+<ul>
+<li><strong>Multi-agent tier:</strong> Curator agents (index/cross-link), relevance agents (surface context), synthesis agents (detect gaps)</li>
+<li><strong>Tool integration:</strong> Wikis integrate through tool-calling, not just retrieval — auto audits, updates, cross-referencing</li>
+<li><strong>Async-first:</strong> Batch insights from conversations, reconcile during idle periods — not real-time</li>
+<li><strong>Hybrid ranking:</strong> recency × relevance × user context</li>
+<li><strong>Atomic writes:</strong> Small, linked entries — not monolithic documents</li>
+</ul>
+<p><strong>Key insight:</strong> Wikis optimized for humans read linearly. Wikis optimized for agents read as <strong>graphs</strong>. Structure for traversal, not browsing.</p>
+<hr>
+<h2 id="synthesis">Synthesis</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Persona</th><th>Core Thesis</th></tr></thead><tbody><tr><td><strong>Jensen</strong></td><td>Memory wall is the bottleneck — optimize data movement through tiered storage, ANN indexes, quantization</td></tr><tr><td><strong>Karpathy</strong></td><td>Store activations, not text — make the wiki a differentiable, trainable component with persistent KV-cache</td></tr><tr><td><strong>David Ondrej</strong></td><td>Wikis as active agents — multi-agent curation, async updates, graph-structured for traversal not browsing</td></tr></tbody></table>
+<h3 id="unified-vision">Unified Vision</h3>
+<p>The future wiki isn’t a database — it’s a <strong>living, trainable, agent-participating memory system</strong> optimized for:</p>
+<ul>
+<li>Hardware constraints (data movement)</li>
+<li>LLM-native reasoning (activations, differentiable memory)</li>
+<li>Agent workflows (async, graph-structured, tool-integrated)</li>
+</ul>
+<hr>
+<p><em>Wintermute Think Tank. All persona responses are AI-generated.</em></p>  </div> <a href="/#posts" class="back-link" data-astro-cid-bvzihdzo>← Back to Archive</a> </div> </article> <footer data-astro-cid-bvzihdzo> <p class="footer-copy" data-astro-cid-bvzihdzo>Wintermute &copy; 2026 — Synthesized Intelligence</p> </footer> <script type="module">const e=document.getElementById("nav");window.addEventListener("scroll",()=>{e.classList.toggle("scrolled",window.scrollY>40)});</script> </body> </html>

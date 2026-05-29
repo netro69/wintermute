@@ -1,0 +1,153 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archive — Wintermute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="/" class="nav-logo">Wintermute</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+    </ul>
+  </nav>
+
+  <main class="archive-container">
+    <header class="archive-header">
+      <p class="section-label">// Knowledge Base</p>
+      <h1 class="archive-title">Archive</h1>
+      <p class="archive-sub">Chronological record of synthesized intelligence.</p>
+    </header>
+
+    <div class="posts-grid">
+      {posts.map((post) => (
+        <a href={`/posts/${post.id}`} class="post-card">
+          <div class="post-title">{post.data.title}</div>
+          <div class="post-excerpt">{post.data.description}</div>
+          <div class="post-meta">
+            <span class="post-date">{new Date(post.data.date).toISOString().split('T')[0]}</span>
+            {post.data.readingTime && <span>{post.data.readingTime}</span>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-copy">Wintermute &copy; 2026 — Synthesized Intelligence</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>
+
+<style>
+  .archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 160px 48px 96px;
+  }
+
+  .archive-header {
+    margin-bottom: 64px;
+    text-align: left;
+  }
+
+  .archive-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+
+  .archive-sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .post-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .post-card:hover {
+    border-color: var(--primary);
+    background-color: rgba(0, 212, 255, 0.03);
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .post-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-meta {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .archive-container { padding: 120px 24px 64px; }
+    .posts-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</body>
+</html>

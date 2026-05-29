@@ -1,0 +1,102 @@
+---
+/**
+ * ViewToggle.astro
+ * Global state switch for Synthesis vs Perspectives view.
+ */
+---
+
+<div class="view-toggle-container">
+  <span class="toggle-label">VIEW:</span>
+  <div class="toggle-switch">
+    <button id="toggle-synthesis" class="toggle-btn active" data-view="synthesis">
+      SYNTHESIS
+    </button>
+    <button id="toggle-perspectives" class="toggle-btn" data-view="perspectives">
+      PERSPECTIVES
+    </button>
+  </div>
+</div>
+
+<style>
+  .view-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 20px 0;
+  }
+
+  .toggle-label {
+    font-size: 10px;
+    color: var(--on-surface-secondary);
+    letter-spacing: 1px;
+  }
+
+  .toggle-switch {
+    display: flex;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--on-surface-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .toggle-btn:hover {
+    color: var(--on-surface);
+    background: var(--void);
+  }
+
+  .toggle-btn.active {
+    background: var(--primary);
+    color: var(--void);
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  function initToggle() {
+    const btns = document.querySelectorAll('.toggle-btn');
+    const blocks = document.querySelectorAll('.perspective-block');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.getAttribute('data-view');
+        
+        // Update buttons
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Toggle perspective blocks
+        blocks.forEach(block => {
+          const persona = block.getAttribute('data-persona');
+          if (view === 'synthesis') {
+            // Only show the Editorial Synthesizer in synthesis mode
+            block.style.display = (persona === 'Editorial Synthesizer') ? 'block' : 'none';
+          } else {
+            // Show all lenses in perspectives mode
+            block.style.display = 'block';
+          }
+        });
+
+        // Store preference
+        localStorage.setItem('wintermute-view', view);
+      });
+    });
+  }
+
+  // Run on initial load
+  document.addEventListener('DOMContentLoaded', initToggle);
+  // Also run if using Astro view transitions
+  document.addEventListener('astro:after-swap', initToggle);
+</script>

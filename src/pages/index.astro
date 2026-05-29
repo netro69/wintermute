@@ -3,7 +3,7 @@ import '../styles/global.css';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
-const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 8);
 ---
 
 <!doctype html>
@@ -60,6 +60,9 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
         </a>
       ))}
     </div>
+    <div style="display: flex; justify-content: center; margin-top: 48px;">
+      <a href="/archive" class="hero-cta">View All Posts →</a>
+    </div>
   </section>
 
   <div class="divider"></div>
@@ -103,7 +106,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     <p class="section-label">// Synthesis</p>
     <h2 class="cta-title">One topic. Four lenses. Zero noise.</h2>
     <p class="cta-sub">Every post is a synthesis — not three opinions in a row, but one integrated intelligence forged from disagreement and convergence.</p>
-    <a href="#posts" class="hero-cta">Explore the Archive</a>
+    <a href="/archive" class="hero-cta">Explore the Archive</a>
   </section>
 
   <footer>
