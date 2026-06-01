@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
+    "@astrojs/node": "^10.1.2",
     "@astrojs/rss": "^4.0.18",
-    "astro": "^6.1.9"
+    "@auth/core": "^0.34.3",
+    "@lucia-auth/adapter-sqlite": "^3.0.2",
+    "astro": "^6.1.9",
+    "lucia": "^3.2.2",
+    "lucia-auth": "^1.8.0",
+    "sqlite3": "^6.0.1"
   }
 }

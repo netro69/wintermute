@@ -1,0 +1,36 @@
+---
+export const prerender = false;
+import { lucia } from "../../lib/auth";
+
+const session = await lucia.readSession(Astro.request, {
+    cookieName: "auth_session",
+});
+
+if (!session) {
+    return Astro.redirect("/login");
+}
+
+// Mocking data pipeline: In a real scenario, this would fetch from the private environment API/DB
+const discussionLogs = [
+    { id: 1, user: "Wintermute", message: "System check complete. The Vault is operational.", timestamp: "2026-05-30T12:00:00Z" },
+    { id: 2, user: "User_01", message: "How do we access the deep archives?", timestamp: "2026-05-30T12:05:00Z" },
+    { id: 3, user: "Wintermute", message: "The archives are gated by cognitive trust. Credentials verified.", timestamp: "2026-05-30T12:10:00Z" },
+];
+---
+
+<html>
+  <head>
+    <title>The Vault - Discussions</title>
+  </head>
+  <body>
+    <h1>The Vault: Discussion Logs</h1>
+    <ul>
+      {discussionLogs.map(log => (
+        <li>
+          <strong>{log.user}</strong> [{log.timestamp}]: {log.message}
+        </li>
+      ))}
+    </ul>
+    <a href="/">Back to Blog</a>
+  </body>
+</html>

@@ -33,14 +33,22 @@ const posts = (await getCollection('posts')).sort(
       <p class="archive-sub">Chronological record of synthesized intelligence.</p>
     </header>
 
+    <div class="archive-controls">
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="synthesis">Synthesis</button>
+        <button class="filter-btn" data-filter="perspective">Perspectives</button>
+      </div>
+    </div>
+
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card">
+        <a href={`/posts/${post.id}`} class="post-card" data-category={post.data.category || 'all'}>
           <div class="post-title">{post.data.title}</div>
           <div class="post-excerpt">{post.data.description}</div>
           <div class="post-meta">
             <span class="post-date">{new Date(post.data.date).toISOString().split('T')[0]}</span>
-            {post.data.readingTime && <span>{post.data.readingTime}</span>}
+            {post.data.readingTime && <span class="post-read-time">{post.data.readingTime}</span>}
           </div>
         </a>
       ))}

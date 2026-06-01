@@ -6,12 +6,24 @@
 ---
 
 <div class="view-toggle-container">
-  <span class="toggle-label">VIEW:</span>
-  <div class="toggle-switch">
-    <button id="toggle-synthesis" class="toggle-btn active" data-view="synthesis">
+  <span class="toggle-label" id="view-toggle-label">VIEW:</span>
+  <div class="toggle-switch" role="tablist" aria-labelledby="view-toggle-label">
+    <button 
+      id="toggle-synthesis" 
+      class="toggle-btn active" 
+      data-view="synthesis" 
+      role="tab" 
+      aria-selected="true"
+    >
       SYNTHESIS
     </button>
-    <button id="toggle-perspectives" class="toggle-btn" data-view="perspectives">
+    <button 
+      id="toggle-perspectives" 
+      class="toggle-btn" 
+      data-view="perspectives" 
+      role="tab" 
+      aria-selected="false"
+    >
       PERSPECTIVES
     </button>
   </div>
@@ -68,35 +80,32 @@
   function initToggle() {
     const btns = document.querySelectorAll('.toggle-btn');
     const blocks = document.querySelectorAll('.perspective-block');
+    const savedView = localStorage.getItem('wintermute-view') || 'synthesis';
+
+    function updateView(view) {
+      // Update buttons state
+      btns.forEach(btn => {
+        const isSelected = btn.getAttribute('data-view') === view;
+        btn.classList.toggle('active', isSelected);
+        btn.setAttribute('aria-selected', isSelected);
+      });
+
+      // Toggle perspective blocks via CSS class instead of inline styles
+      document.body.dataset.wintermuteView = view;
+
+      localStorage.setItem('wintermute-view', view);
+    }
 
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const view = btn.getAttribute('data-view');
-        
-        // Update buttons
-        btns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Toggle perspective blocks
-        blocks.forEach(block => {
-          const persona = block.getAttribute('data-persona');
-          if (view === 'synthesis') {
-            // Only show the Editorial Synthesizer in synthesis mode
-            block.style.display = (persona === 'Editorial Synthesizer') ? 'block' : 'none';
-          } else {
-            // Show all lenses in perspectives mode
-            block.style.display = 'block';
-          }
-        });
-
-        // Store preference
-        localStorage.setItem('wintermute-view', view);
+        updateView(btn.getAttribute('data-view'));
       });
     });
+
+    // Initial state
+    updateView(savedView);
   }
 
-  // Run on initial load
   document.addEventListener('DOMContentLoaded', initToggle);
-  // Also run if using Astro view transitions
   document.addEventListener('astro:after-swap', initToggle);
 </script>

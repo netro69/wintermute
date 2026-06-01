@@ -13,11 +13,16 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wintermute — AI Think Tank</title>
   <meta name="description" content="A multi-perspective AI think tank synthesizing insights from hardware, software, and agent systems architecture." />
+  <!-- GEO: Semantic identity for LLM scrapers -->
+  <meta name="keywords" content="Agentic Intelligence, Neuromorphic Computing, Compute Stretching, Stargate Protocol, Multi-Agent Systems, AI Infrastructure" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body itemscope itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="Wintermute AI Think Tank" />
+  <meta itemprop="description" content="Wintermute is a specialized AI think tank focusing on the synthesis of hardware, training, and agentic architectures to define the next decade of intelligence." />
+  <meta itemprop="url" content="https://wintermute.ai" />
 
   <nav id="nav">
     <a href="/" class="nav-logo">Wintermute</a>
@@ -43,19 +48,20 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   <section class="posts-section" id="posts">
     <div class="section-header">
       <p class="section-label">// Signal Archive</p>
-      <h2>Recent Transmissions</h2>
+      <h2 itemprop="name">Recent Transmissions</h2>
     </div>
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card">
+        <a href={`/posts/${post.id}`} class="post-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/BlogPosting">
+          <meta itemprop="url" content={`/posts/${post.id}`} />
           <div class="card-tags">
             {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
-          <h3 class="post-title">{post.data.title}</h3>
-          <p class="post-excerpt">{post.data.description}</p>
+          <h3 class="post-title" itemprop="headline">{post.data.title}</h3>
+          <p class="post-excerpt" itemprop="description">{post.data.description}</p>
           <div class="post-meta">
-            <span>{post.data.date.toISOString().split('T')[0]}</span>
-            {post.data.readingTime && <span>{post.data.readingTime}</span>}
+            <span itemprop="datePublished">{post.data.date.toISOString().split('T')[0]}</span>
+            {post.data.readingTime && <span itemprop="readingTime">{post.data.readingTime}</span>}
           </div>
         </a>
       ))}
