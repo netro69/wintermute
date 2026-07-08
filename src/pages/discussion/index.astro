@@ -1,8 +1,8 @@
 ---
 export const prerender = false;
-import { lucia } from "../../lib/auth";
+import { luciaInstance } from "../../lib/auth";
 
-const session = await lucia.readSession(Astro.request, {
+const session = await luciaInstance.readSession(Astro.request, {
     cookieName: "auth_session",
 });
 

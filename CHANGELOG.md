@@ -1,5 +1,10 @@
 # Project Log: Wintermute Site Updates (2026-06-01)
 
+## Persona Update & Build Fix (2026-07-08)
+- **Fourth Lens — Material Architect**: Replaced the `Editorial Synthesizer` homepage persona card with **The Material Architect** (industrial realist / visionary-value lens, Elon-influenced). Updated the section heading from "Three Perspectives, One Synthesis" to **"Four Perspectives, One Synthesis"** (`src/pages/index.astro`). This aligns the live site with the recovered 4-lens architecture (Silicon + Training + Agentic + Material → passive Mediator synthesis).
+- **Build Fix — Lucia Auth**: `src/pages/discussion/index.astro` imported `lucia` (which shadowed the `lucia` package import) instead of the exported `luciaInstance`. Renamed both the import and the `readSession` call to `luciaInstance`, matching `middleware.ts`. The site now builds clean (`npm run build` exit 0).
+- Branch: `feature/material-architect` (pushed to `origin`, PR pending into `main`).
+
 ## UI/UX Iteration (Priority 2)
 - **Neural Void Background**: Implemented a coordinate grid system in `global.css` to eliminate flat blacks and add architectural depth.
 - **Neon Refinements**: 
