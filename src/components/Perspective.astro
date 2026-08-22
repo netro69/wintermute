@@ -2,9 +2,10 @@
 /**
  * Perspective.astro
  * Component to wrap content attributed to a specific Wintermute persona.
- * 
+ *
  * Usage: <Perspective persona="Silicon Architect">...</Perspective>
  */
+const { persona } = Astro.props;
 ---
 
 <div class={`perspective-block persona-${persona.toLowerCase().replace(/\s+/g, '-')}`} data-persona={persona}>
