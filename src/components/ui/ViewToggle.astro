@@ -1,111 +1,29 @@
 ---
-/**
- * ViewToggle.astro
- * Global state switch for Synthesis vs Perspectives view.
- */
+// Progressive enhancement: without JS, show the complete article, no inert controls.
 ---
-
-<div class="view-toggle-container">
+<div class="view-toggle-container" hidden>
   <span class="toggle-label" id="view-toggle-label">VIEW:</span>
-  <div class="toggle-switch" role="tablist" aria-labelledby="view-toggle-label">
-    <button 
-      id="toggle-synthesis" 
-      class="toggle-btn active" 
-      data-view="synthesis" 
-      role="tab" 
-      aria-selected="true"
-    >
-      SYNTHESIS
-    </button>
-    <button 
-      id="toggle-perspectives" 
-      class="toggle-btn" 
-      data-view="perspectives" 
-      role="tab" 
-      aria-selected="false"
-    >
-      PERSPECTIVES
-    </button>
+  <div class="toggle-switch" role="group" aria-labelledby="view-toggle-label">
+    <button type="button" id="toggle-synthesis" class="toggle-btn" data-view="synthesis" aria-pressed="false">SYNTHESIS</button>
+    <button type="button" id="toggle-perspectives" class="toggle-btn active" data-view="perspectives" aria-pressed="true">PERSPECTIVES</button>
   </div>
 </div>
-
 <style>
-  .view-toggle-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    margin: 20px 0;
-  }
-
-  .toggle-label {
-    font-size: 10px;
-    color: var(--on-surface-secondary);
-    letter-spacing: 1px;
-  }
-
-  .toggle-switch {
-    display: flex;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .toggle-btn {
-    background: transparent;
-    border: none;
-    color: var(--on-surface-secondary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    outline: none;
-  }
-
-  .toggle-btn:hover {
-    color: var(--on-surface);
-    background: var(--void);
-  }
-
-  .toggle-btn.active {
-    background: var(--primary);
-    color: var(--void);
-    font-weight: bold;
+  .view-toggle-container { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-family: var(--font-mono); margin: 20px 0; }
+  .view-toggle-container[hidden] { display: none; }
+  .toggle-label { font-size: 10px; color: var(--text-secondary); letter-spacing: 1px; }
+  .toggle-switch { display: flex; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; }
+  .toggle-btn { background: transparent; border: 1px solid transparent; color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; min-height: 36px; padding: 6px 12px; cursor: pointer; transition: background-color 0.2s ease; }
+  .toggle-btn:hover { color: var(--text-primary); background: var(--void); }
+  .toggle-btn.active { background: var(--primary); color: var(--void); font-weight: bold; }
+  .toggle-btn:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; position: relative; z-index: 1; }
+  @media (forced-colors: active) {
+    .toggle-btn.active { border-color: ButtonText; }
+    .toggle-btn:focus-visible { outline-color: Highlight; }
   }
 </style>
-
 <script>
-  function initToggle() {
-    const btns = document.querySelectorAll('.toggle-btn');
-    const blocks = document.querySelectorAll('.perspective-block');
-    const savedView = localStorage.getItem('wintermute-view') || 'synthesis';
-
-    function updateView(view) {
-      // Update buttons state
-      btns.forEach(btn => {
-        const isSelected = btn.getAttribute('data-view') === view;
-        btn.classList.toggle('active', isSelected);
-        btn.setAttribute('aria-selected', isSelected);
-      });
-
-      // Toggle perspective blocks via CSS class instead of inline styles
-      document.body.dataset.wintermuteView = view;
-
-      localStorage.setItem('wintermute-view', view);
-    }
-
-    btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        updateView(btn.getAttribute('data-view'));
-      });
-    });
-
-    // Initial state
-    updateView(savedView);
-  }
-
-  document.addEventListener('DOMContentLoaded', initToggle);
-  document.addEventListener('astro:after-swap', initToggle);
+  import { initReadingView } from '../../lib/reading-view.js';
+  initReadingView(document, window);
+  document.addEventListener('astro:page-load', () => initReadingView(document, window));
 </script>

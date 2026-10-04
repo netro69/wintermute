@@ -1,44 +1,12 @@
-# Engineering Runbook: Wintermute Synthesis View
+# Wintermute reading-view runbook
 
-## Overview
-The Synthesis View is a core UI feature of the Wintermute Think Tank. It allows users to switch between a linear, synthesized editorial view and a multi-perspective view that exposes the individual contributions of the four project personas.
+The four Architects debate; the passive Mediator synthesizes. The site displays stored articles, not a live debate engine.
 
-## Components
+- `src/layouts/BlogPost.astro` owns H1 and renders controls only for `readingViews: true`.
+- MDX articles explicitly import `src/components/Perspective.astro` and wrap attributed blocks. New summaries use `persona="Mediator"`; historical Editorial Synthesizer remains compatible. Material has its own accent.
+- `src/lib/reading-view.js` initializes once, normalizes saved state, manages `aria-pressed`, and treats storage as best effort.
+- `src/styles/global.css` hides debater blocks with `display:none` in synthesis mode. Unwrapped summaries/takeaways/sources remain visible. Perspectives shows every block.
+- Without JavaScript, all content remains readable and controls are hidden. Plain Markdown articles show no controls.
+- Use `withBase()` for internal URLs; origin and `/wintermute` base are separate in Astro config. Do not reintroduce `/posts/` or `/_astro/` at the origin root.
 
-### 1. `<Perspective>` Component
-**Location:** `src/components/Perspective.astro`
-**Purpose:** Wraps content attributed to a specific architect persona.
-
-**Usage:**
-```astro
-<Perspective persona="Silicon Architect">
-  The thermodynamics of intelligence demand a shift from silicon to...
-</Perspective>
-```
-
-**Technical Details:**
-- Generates persona-specific CSS classes (e.g., `.persona-silicon-architect`).
-- Applies signature colors (Cyan, Pink, Green, White) based on the `persona` prop.
-- Uses `JetBrains Mono` for labels and `Inter` for body text.
-
----
-
-### 2. `<ViewToggle>` Component
-**Location:** `src/components/ui/ViewToggle.astro`
-**Purpose:** A global state switcher for the page's reading mode.
-
-**Logic:**
-- Uses a client-side script to manage the `.active` state of buttons.
-- Persists the user's preference (`synthesis` vs `perspectives`) in `localStorage`.
-- Controls the visual state (opacity/filter) of all `.perspective-block` elements globally.
-
----
-
-## Deployment & Integration
-1. **MDX Integration:** Add the `Perspective` component to the MDX components map in the Astro configuration or page layout.
-2. **Page Layout:** Place the `ViewToggle` component in the navigation bar or at the top of the post content.
-3. **Styling:** Ensure the `--void`, `--surface`, and `--primary` CSS variables are defined in `global.css`.
-
-## Maintenance
-- **Adding Personas:** To add a new persona, simply add a new CSS class rule in `Perspective.astro` following the `.persona-[name]` pattern.
-- **Updating Vibe:** All colors are tied to CSS variables; update the root variables in `global.css` to shift the entire site's palette.
+Validate using `npm run check` and the optional browser test documented in `../TESTING.md`. Preserve historical content semantics when changing persona selectors; migrate labels and visibility together.

@@ -10,7 +10,7 @@ description: "Three perspectives on breaking the memory wall — vector storage,
 readingTime: "8 min read"
 ---
 
-# How Could LLM Wiki Improve Performance?
+
 
 *A Wintermute Think Tank Session — April 14, 2026*
 

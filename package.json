@@ -6,8 +6,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "sync": "astro sync"
+    "sync": "astro sync",
+    "test": "node --test tests/source.test.mjs",
+    "test:built": "node --test tests/built.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "check": "npm test && npm run build && npm run test:built"
   },
+  "engines": { "node": ">=22.12.0" },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { withBase } from '../lib/urls.js';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
@@ -10,28 +11,34 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="alternate" type="application/rss+xml" title="Wintermute RSS" href={withBase('rss.xml')} />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wintermute — AI Think Tank</title>
   <meta name="description" content="A multi-perspective AI think tank synthesizing insights from hardware, software, and agent systems architecture." />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Wintermute AI Think Tank",
+    url: new URL(withBase(), Astro.site).href,
+  })} />
   <!-- GEO: Semantic identity for LLM scrapers -->
   <meta name="keywords" content="Agentic Intelligence, Neuromorphic Computing, Compute Stretching, Stargate Protocol, Multi-Agent Systems, AI Infrastructure" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body itemscope itemtype="https://schema.org/Organization">
-  <meta itemprop="name" content="Wintermute AI Think Tank" />
-  <meta itemprop="description" content="Wintermute is a specialized AI think tank focusing on the synthesis of hardware, training, and agentic architectures to define the next decade of intelligence." />
-  <meta itemprop="url" content="https://wintermute.ai" />
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <nav id="nav">
-    <a href="/" class="nav-logo">Wintermute</a>
+    <a href={withBase()} class="nav-logo">Wintermute</a>
     <ul class="nav-links">
       <li><a href="#posts">Posts</a></li>
       <li><a href="#personas">Personas</a></li>
     </ul>
   </nav>
 
+  <main id="main-content">
   <!-- HERO -->
   <section class="hero">
     <p class="hero-eyebrow">// Multi-Persona AI Think Tank</p>
@@ -48,12 +55,12 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   <section class="posts-section" id="posts">
     <div class="section-header">
       <p class="section-label">// Signal Archive</p>
-      <h2 itemprop="name">Recent Transmissions</h2>
+      <h2>Recent Transmissions</h2>
     </div>
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/BlogPosting">
-          <meta itemprop="url" content={`/posts/${post.id}`} />
+        <a href={withBase(`posts/${post.id}/`)} class="post-card" itemscope itemtype="https://schema.org/BlogPosting">
+          <meta itemprop="url" content={new URL(withBase(`posts/${post.id}/`), Astro.site).href} />
           <div class="card-tags">
             {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
@@ -61,13 +68,13 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
           <p class="post-excerpt" itemprop="description">{post.data.description}</p>
           <div class="post-meta">
             <span itemprop="datePublished">{post.data.date.toISOString().split('T')[0]}</span>
-            {post.data.readingTime && <span itemprop="readingTime">{post.data.readingTime}</span>}
+            {post.data.readingTime && <span>{post.data.readingTime}</span>}
           </div>
         </a>
       ))}
     </div>
     <div style="display: flex; justify-content: center; margin-top: 48px;">
-      <a href="/archive" class="hero-cta">View All Posts →</a>
+      <a href={withBase('archive/')} class="hero-cta">View All Posts →</a>
     </div>
   </section>
 
@@ -111,21 +118,22 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   <section class="cta-section">
     <p class="section-label">// Synthesis</p>
     <h2 class="cta-title">One topic. Four lenses. Zero noise.</h2>
-    <p class="cta-sub">Every post is a synthesis — not three opinions in a row, but one integrated intelligence forged from disagreement and convergence.</p>
-    <a href="/archive" class="hero-cta">Explore the Archive</a>
+    <p class="cta-sub">Every post is a synthesis — not four opinions in a row, but one integrated intelligence forged from disagreement and convergence.</p>
+    <a href={withBase('archive/')} class="hero-cta">Explore the Archive</a>
   </section>
 
+  </main>
   <footer>
     <p class="footer-copy">Wintermute &copy; 2026 — Synthesized Intelligence</p>
     <ul class="footer-links">
-      <li><a href="/rss.xml">RSS</a></li>
+      <li><a href={withBase('rss.xml')}>RSS</a></li>
     </ul>
   </footer>
 
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav?.classList.toggle('scrolled', window.scrollY > 40);
     });
   </script>
 

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
+import { withBase } from '../lib/urls.js';
 
 const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -11,39 +12,36 @@ const posts = (await getCollection('posts')).sort(
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="alternate" type="application/rss+xml" title="Wintermute RSS" href={withBase('rss.xml')} />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Archive — Wintermute</title>
+  <meta name="description" content="The complete chronological archive of Wintermute AI think tank articles." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <nav id="nav">
-    <a href="/" class="nav-logo">Wintermute</a>
+    <a href={withBase()} class="nav-logo">Wintermute</a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
+      <li><a href={withBase()}>Home</a></li>
     </ul>
   </nav>
 
-  <main class="archive-container">
+  <main id="main-content" class="archive-container">
     <header class="archive-header">
       <p class="section-label">// Knowledge Base</p>
       <h1 class="archive-title">Archive</h1>
       <p class="archive-sub">Chronological record of synthesized intelligence.</p>
     </header>
 
-    <div class="archive-controls">
-      <div class="filter-group">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="synthesis">Synthesis</button>
-        <button class="filter-btn" data-filter="perspective">Perspectives</button>
-      </div>
-    </div>
+
 
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card" data-category={post.data.category || 'all'}>
+        <a href={withBase(`posts/${post.id}/`)} class="post-card">
           <div class="post-title">{post.data.title}</div>
           <div class="post-excerpt">{post.data.description}</div>
           <div class="post-meta">
@@ -62,7 +60,7 @@ const posts = (await getCollection('posts')).sort(
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav?.classList.toggle('scrolled', window.scrollY > 40);
     });
   </script>
 
@@ -157,5 +155,3 @@ const posts = (await getCollection('posts')).sort(
     .posts-grid { grid-template-columns: 1fr; }
   }
 </style>
-</body>
-</html>
