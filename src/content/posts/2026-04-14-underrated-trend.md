@@ -9,7 +9,7 @@ description: "Two underestimated inflection points — test-time compute scaling
 readingTime: "7 min read"
 ---
 
-# The Most Underrated Trend in AI
+
 
 *A Wintermute Think Tank Session — April 14, 2026*
 
@@ -53,7 +53,7 @@ We've fixated on AI replacing jobs, but we've missed something deeper: humans ar
 | **Jensen** | Technical inflection: inference-time scaling shifts compute from training to test-time |
 | **Karpathy** | Existential inflection: humans offloading cognition raises questions about identity and authenticity |
 
-**The tension:** Karpathy's "more thinking" at the AI level might accelerate Jensen's "less thinking" at the human level.
+**The tension:** Jensen's "more thinking" at the AI level might accelerate Karpathy's "less thinking" at the human level.
 
 ---
 

@@ -1,26 +1,22 @@
-# Testing Strategy - Wintermute Blog
+# Wintermute regression checks
 
-## 1. Core Feature: ViewToggle Visibility
-The 'Four-Lenses' toggle is critical to the UX. Any regression here breaks the "Synthesis" vs "Perspectives" value proposition.
+Use Node >=22.12.0 (CI: 24).
 
-### Test Case: Synthesis Mode
-- **Expectation:** Only blocks with `data-persona="Editorial Synthesizer"` are visible.
-- **Validation:** `document.querySelectorAll('.perspective-block:not([data-persona="Editorial Synthesizer"])')` should have `display: none` via CSS.
-- **Persistence:** Refreshing the page should preserve the state from `localStorage`.
+```bash
+npm ci
+npm run check
+```
 
-### Test Case: Perspectives Mode
-- **Expectation:** All `.perspective-block` elements are visible.
-- **Validation:** All `perspective-block` elements should have `display: block` (or default).
+`npm test` checks preference normalization, storage-denied initialization/click behavior, idempotency, deployment configuration, shared title ownership and explicit reading-view opt-in.
 
-## 2. Content Pipeline Stability
-- **Schema Validation:** Ensure all MDX files strictly follow the `content.config.ts` schema.
-- **Slug Collision:** Verify that `getStaticPaths` handles duplicate slugs (though Astro's glob loader usually handles this via IDs).
+`npm run test:built` requires `dist/`: validates the current 15-page/13-article baseline, one H1 per page, project-prefixed local links/assets with existing targets, seven reading controls, and all 13 RSS article links. Update deliberate inventory changes in tests. CI executes these on PRs; PRs do not publish.
 
-## 3. Performance Benchmarks
-- **LCP (Largest Contentful Paint):** Ensure minimal JS impact on initial render.
-- **CLS (Cumulative Layout Shift):** Ensure the `ViewToggle` doesn't cause shifts during hydration.
+## Optional real-browser regression
 
-## 4. Automated Testing (Proposed)
-Since the project is lightweight, we will implement:
-- **Playwright/Cypress:** For E2E testing of the toggle.
-- **Zod Validation:** Already integrated via Astro Content Collections for build-time type safety.
+Install puppeteer-core in a separate tooling directory, or provide an existing installation. Set `PUPPETEER_MODULE` to its absolute module directory and `CHROME_PATH` to an installed Chrome executable, then run `npm run test:browser`. These are environment variables, not repository secrets.
+
+The test serves output strictly under `/wintermute/`, checks all 13 articles, seven toggles, persistence, storage-denied fallback, no-JS behavior and 390px reflow. It blocks external font requests for deterministic local checks; it excludes only the browser's undeclared automatic `/favicon.ico` request. This is not a production font/performance audit or full accessibility certification.
+
+Synthesis retains Mediator and historical Editorial Synthesizer blocks, plus unwrapped prose; Perspectives shows all blocks. Without JS, controls remain hidden and full content is available. Native pressed buttons retain visible keyboard focus.
+
+2026-09-17 local receipts: 4 source tests + 3 built tests passed; 15 pages built; real Chrome test PASS, zero application resource failures/page errors.

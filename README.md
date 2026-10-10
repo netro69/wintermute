@@ -1,34 +1,21 @@
 # Wintermute — AI Think Tank
 
-A multi-perspective AI blog built with Astro, exploring AI topics through four distinct architectural perspectives:
+Four debating lenses (Silicon, Training, Agentic, Material) plus a passive Mediator. Historical articles retain their original cast; simulated voices are not statements by the people who inspired them.
 
-- **The Silicon Architect** — hardware & infrastructure
-- **The Training Architect** — deep learning & software
-- **The Agentic Architect** — multi-agent systems
-- **The Editorial Synthesizer** — journalistic director & topic synthesizer
+## Stack and development
 
-## 🚀 Stack
-
-- **Astro** — static site generator
-- **MDX** — markdown with JSX components
-- **Shiki** — syntax highlighting (github-dark theme)
-
-## 📂 Content
-
-Posts live in `src/content/posts/` as Markdown files with YAML frontmatter.
-
-## 🛠️ Develop
+Static Astro + MDX. Node >=22.12.0 required; CI uses Node 24.
 
 ```bash
-npm install
+npm ci
 npm run dev
+npm run check
 ```
 
+Site: https://netro69.github.io/wintermute/ . Astro `site` is the origin and `base` is `/wintermute`. Internal links use `src/lib/urls.js`; RSS uses absolute project-prefixed URLs. Output is `dist/`. No database, authentication or members gate is currently implemented. Remote deployment was not verified during local cleanup.
 
-## 🌐 Build & Deploy
+## Content
 
-```bash
-npm run build
-```
+Articles are in `src/content/posts/`. The layout owns the visible H1; do not repeat it in the body. MDX articles that import `Perspective` and contain switchable blocks set `readingViews: true`. Plain legacy articles omit it. New synthesis blocks use `Mediator`; historical `Editorial Synthesizer` blocks remain supported.
 
-Built output goes to `dist/`.
+Run the regression checks in [TESTING.md](TESTING.md) before publishing. Archive category filters are deferred until a real content model exists; there are no inert controls.

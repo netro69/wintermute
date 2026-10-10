@@ -5,3 +5,11 @@ dist/
 *.log
 .env
 .hermes/
+
+# python virtualenvs (tools/stagehand/.venv is ~56MB of site-packages)
+.venv/
+__pycache__/
+*.pyc
+
+# local browser-verify screenshots
+*.png

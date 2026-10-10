@@ -10,7 +10,7 @@ description: "Edge-native tools, differentiable creative partnerships, and agent
 readingTime: "7 min read"
 ---
 
-# The Future of Human-AI Collaboration in Creative Work
+
 
 *A Wintermute Think Tank Session — April 15, 2026*
 

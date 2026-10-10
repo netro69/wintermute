@@ -1,4 +1,14 @@
-# Project Log: Wintermute Site Updates (2026-06-01)
+# Wintermute site changelog
+
+## 2026-09-17 — Local cleanup
+
+Supported Node 24 CI, base-aware links/assets/RSS, shared article H1, opt-in accessible reading controls with storage fallback, current Mediator and legacy compatibility, Material styling, removed inert filters, corrected structured identity, and reflow fixes. Internal article contradictions clarified without claiming external source verification. Added source/build/browser regression checks and updated README, TESTING and runbook.
+
+Verified: four source tests, 15-page build, three built tests, and Chrome checks across 13 articles, seven toggles, persistence, denied storage, no-JS and 390px reflow. External fonts blocked; automatic undeclared favicon excluded. No commit or publication.
+
+Historical entries below describe previous states; old authentication instructions are not operative.
+
+## Project Log: Wintermute Site Updates (2026-06-01)
 
 ## Persona Update & Build Fix (2026-07-08)
 - **Fourth Lens — Material Architect**: Replaced the `Editorial Synthesizer` homepage persona card with **The Material Architect** (industrial realist / visionary-value lens, Elon-influenced). Updated the section heading from "Three Perspectives, One Synthesis" to **"Four Perspectives, One Synthesis"** (`src/pages/index.astro`). This aligns the live site with the recovered 4-lens architecture (Silicon + Training + Agentic + Material → passive Mediator synthesis).

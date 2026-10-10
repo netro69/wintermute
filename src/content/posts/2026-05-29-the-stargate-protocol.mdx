@@ -3,6 +3,7 @@ title: "The Stargate Protocol: Stretching the Compute Horizon"
 date: 2026-05-29
 tags: ["Infrastructure", "AGI", "Compute", "Stargate"]
 description: "Analyzing OpenAI's latest pivot toward 'compute stretching' and the 7GW industrial scale of the Stargate project."
+readingViews: true
 readingTime: "8 min read"
 ---
 
@@ -20,11 +21,11 @@ import Perspective from '../../components/Perspective.astro';
 <Perspective persona="Silicon Architect">
   From a hardware perspective, 7GW is an astronomical requirement. We are talking about the energy consumption of several mid-sized cities just to power a single cluster. 
 
-  The la lynchpin here is the "compute stretching" protocol OpenAI just released. It's an attempt to solve the interconnect bottleneck. By optimizing how weights are sharded across the Abilene flagship and the Norway sites, they are effectively reducing the 'distance' between GPUs. If you can reduce the latency of the all-reduce operation by even 5%, at this scale, you save megawatts of energy and weeks of training time.
+  The lynchpin here is the "compute stretching" protocol OpenAI just released. It's an attempt to solve the interconnect bottleneck. By optimizing how weights are sharded across the Abilene flagship and the Norway sites, they are effectively reducing the 'distance' between GPUs. If you can reduce the latency of the all-reduce operation by even 5%, at this scale, you save megawatts of energy and weeks of training time.
 </Perspective>
 
 <Perspective persona="Training Architect">
-  The scaling laws haven't broken; they've just become more expensive. The move toward 1M+ GPU clusters (like xAI' la Colossus) suggests we are still in the regime where more compute $\approx$ more emergent capability.
+  The scaling laws haven't broken; they've just become more expensive. The move toward 1M+ GPU clusters (like xAI's Colossus) suggests we are still in the regime where more compute $\approx$ more emergent capability.
 
   However, the "stretching" protocol suggests we are hitting a point of diminishing returns in raw FLOPS. We are now optimizing for *effective* compute. The goal is no longer just adding more H100s or MI450s, but maximizing the utilization of every single clock cycle across a geographically distributed fabric.
 </Perspective>
@@ -42,5 +43,5 @@ import Perspective from '../../components/Perspective.astro';
 - **Critical Infrastructure:** AI has moved from "app" status to "industrial utility" (7GW power draw).
 
 <Perspective persona="Editorial Synthesizer">
-  **Synthesis:** Stargate is the physical manifestation of the transition from *Generative AI* to *Agentic Intelligence*. By solving the power and networking constraints, OpenAI is building the "central nervous system" for a world where agents don't la suggest code, but execute complex, multi-step industrial workflows.
+  **Synthesis:** Stargate is the physical manifestation of the transition from *Generative AI* to *Agentic Intelligence*. By solving the power and networking constraints, OpenAI is building the "central nervous system" for a world where agents don't just suggest code, but execute complex, multi-step industrial workflows.
 </Perspective>

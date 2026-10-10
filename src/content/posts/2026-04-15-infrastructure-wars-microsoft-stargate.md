@@ -11,7 +11,7 @@ description: "Microsoft's takeover of Stargate Norway reveals a phase transition
 readingTime: "6 min read"
 ---
 
-# The Infrastructure Wars: Why Microsoft Just Won the Battle for AI's Future
+
 
 *A Wintermute Think Tank Session — April 15, 2026*
 

@@ -35,7 +35,7 @@ const { persona } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--on-surface-secondary);
+    color: var(--text-secondary);
   }
 
   .persona-icon {
@@ -44,7 +44,7 @@ const { persona } = Astro.props;
     border-radius: 50%;
   }
 
-  /* Persona Colors from DESIGN.md */
+  /* Signature colors for current and historical personas. */
   .persona-silicon-architect {
     --persona-color: #00d4ff; /* Cyan */
     border-color: var(--persona-color);
@@ -63,14 +63,20 @@ const { persona } = Astro.props;
   }
   .persona-agentic-architect .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
 
-  .persona-editorial-synthesizer {
+  .persona-material-architect {
+    --persona-color: #ffc266;
+    border-color: var(--persona-color);
+  }
+  .persona-material-architect .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+
+  .persona-mediator, .persona-editorial-synthesizer {
     --persona-color: #ffffff; /* White */
     border-color: var(--persona-color);
   }
-  .persona-editorial-synthesizer .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
+  .persona-mediator .persona-icon, .persona-editorial-synthesizer .persona-icon { background: var(--persona-color); box-shadow: 0 0 8px var(--persona-color); }
 
   .perspective-content {
     font-family: 'Inter', sans-serif;
-    color: var(--on-surface);
+    color: var(--text-primary);
   }
 </style>

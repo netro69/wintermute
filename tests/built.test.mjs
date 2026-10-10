@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync,existsSync,statSync} from 'node:fs';
+import {join,resolve} from 'node:path';
+const root=resolve('dist');
+const walk=p=>readdirSync(p).flatMap(n=>statSync(join(p,n)).isDirectory()?walk(join(p,n)):[join(p,n)]);
+const pages=walk(root).filter(p=>p.endsWith('.html'));
+test('15 built pages, exactly one H1 each, all local links/assets stay in mount and exist',()=>{assert.equal(pages.length,15);for(const p of pages){const html=readFileSync(p,'utf8');assert.equal((html.match(/<h1\b/g)||[]).length,1,p);for(const [,url] of html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)){assert.ok(url.startsWith('/wintermute/'),p+': '+url);const rel=decodeURIComponent(url.split(/[?#]/)[0].slice('/wintermute/'.length));assert.ok(existsSync(join(root,rel)),url);}}});
+test('reading controls appear only on seven component articles',()=>{let n=0;for(const p of pages.filter(p=>p.includes('posts'))){const html=readFileSync(p,'utf8');if(html.includes('id="toggle-synthesis"'))n++;}assert.equal(n,7);});
+test('RSS has 13 correctly prefixed article links',()=>{const xml=readFileSync(join(root,'rss.xml'),'utf8');const items=[...xml.matchAll(/<item>[\s\S]*?<link>(.*?)<\/link>/g)];assert.equal(items.length,13);for(const [,url] of items)assert.ok(url.startsWith('https://netro69.github.io/wintermute/posts/'),url);});
