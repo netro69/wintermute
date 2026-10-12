@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
+import ViewToggle from '../components/ui/ViewToggle.astro';
 
 const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -25,6 +26,8 @@ const posts = (await getCollection('posts')).sort(
       <li><a href="/">Home</a></li>
     </ul>
   </nav>
+
+  <ViewToggle />
 
   <main class="archive-container">
     <header class="archive-header">

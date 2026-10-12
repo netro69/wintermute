@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ViewToggle from '../components/ui/ViewToggle.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
@@ -41,6 +42,8 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     </p>
     <a href="#posts" class="hero-cta">Read the Latest</a>
   </section>
+
+  <ViewToggle />
 
   <div class="divider"></div>
 

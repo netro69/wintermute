@@ -5,23 +5,23 @@
  */
 ---
 
-<div class="view-toggle-container">
+<div class="view-toggle-container" client:load>
   <span class="toggle-label" id="view-toggle-label">VIEW:</span>
   <div class="toggle-switch" role="tablist" aria-labelledby="view-toggle-label">
-    <button 
-      id="toggle-synthesis" 
-      class="toggle-btn active" 
-      data-view="synthesis" 
-      role="tab" 
+    <button
+      id="toggle-synthesis"
+      class="toggle-btn active"
+      data-view="synthesis"
+      role="tab"
       aria-selected="true"
     >
       SYNTHESIS
     </button>
-    <button 
-      id="toggle-perspectives" 
-      class="toggle-btn" 
-      data-view="perspectives" 
-      role="tab" 
+    <button
+      id="toggle-perspectives"
+      class="toggle-btn"
+      data-view="perspectives"
+      role="tab"
       aria-selected="false"
     >
       PERSPECTIVES
@@ -76,7 +76,7 @@
   }
 </style>
 
-<script>
+<script is:inline client:load>
   function initToggle() {
     const btns = document.querySelectorAll('.toggle-btn');
     const blocks = document.querySelectorAll('.perspective-block');
