@@ -21,9 +21,9 @@ const posts = (await getCollection('posts')).sort(
 <body>
 
   <nav id="nav">
-    <a href="/" class="nav-logo">Wintermute</a>
+    <a href={import.meta.env.BASE_URL} class="nav-logo">Wintermute</a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
+      <li><a href={import.meta.env.BASE_URL}>Home</a></li>
     </ul>
   </nav>
 
@@ -46,7 +46,7 @@ const posts = (await getCollection('posts')).sort(
 
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card" data-category={post.data.category || 'all'}>
+        <a href={`${import.meta.env.BASE_URL}posts/${post.id}`} class="post-card" data-category={post.data.category || 'all'}>
           <div class="post-title">{post.data.title}</div>
           <div class="post-excerpt">{post.data.description}</div>
           <div class="post-meta">

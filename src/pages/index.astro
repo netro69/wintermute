@@ -26,7 +26,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
   <meta itemprop="url" content="https://wintermute.ai" />
 
   <nav id="nav">
-    <a href="/" class="nav-logo">Wintermute</a>
+    <a href={import.meta.env.BASE_URL} class="nav-logo">Wintermute</a>
     <ul class="nav-links">
       <li><a href="#posts">Posts</a></li>
       <li><a href="#personas">Personas</a></li>
@@ -55,7 +55,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     </div>
     <div class="posts-grid">
       {posts.map((post) => (
-        <a href={`/posts/${post.id}`} class="post-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/BlogPosting">
+        <a href={`${import.meta.env.BASE_URL}posts/${post.id}`} class="post-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/BlogPosting">
           <meta itemprop="url" content={`/posts/${post.id}`} />
           <div class="card-tags">
             {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
@@ -70,7 +70,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
       ))}
     </div>
     <div style="display: flex; justify-content: center; margin-top: 48px;">
-      <a href="/archive" class="hero-cta">View All Posts →</a>
+      <a href={`${import.meta.env.BASE_URL}archive`} class="hero-cta">View All Posts →</a>
     </div>
   </section>
 
@@ -115,13 +115,13 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     <p class="section-label">// Synthesis</p>
     <h2 class="cta-title">One topic. Four lenses. Zero noise.</h2>
     <p class="cta-sub">Every post is a synthesis — not three opinions in a row, but one integrated intelligence forged from disagreement and convergence.</p>
-    <a href="/archive" class="hero-cta">Explore the Archive</a>
+    <a href={`${import.meta.env.BASE_URL}archive`} class="hero-cta">Explore the Archive</a>
   </section>
 
   <footer>
     <p class="footer-copy">Wintermute &copy; 2026 — Synthesized Intelligence</p>
     <ul class="footer-links">
-      <li><a href="/rss.xml">RSS</a></li>
+      <li><a href={`${import.meta.env.BASE_URL}rss.xml`}>RSS</a></li>
     </ul>
   </footer>
 
